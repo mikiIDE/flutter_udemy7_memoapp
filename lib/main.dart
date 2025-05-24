@@ -103,15 +103,21 @@ class _MyHomePageState extends State<MyHomePage> {
             );
           }
           final item = items[index - 1];
-          return ListTile(
-              leading:Icon(
-                item.completed ? Icons.check_box :
-                    Icons.check_box_outline_blank,
-              ),
-              onTap: (){
-                complete(item);
-              },
-              title: Text(item.text));
+          return Dismissible(
+            key: Key(item.id),
+            onDismissed: (direction){
+              delete(item.id);
+            },
+            child: ListTile(
+                leading:Icon(
+                  item.completed ? Icons.check_box :
+                      Icons.check_box_outline_blank,
+                ),
+                onTap: (){
+                  complete(item);
+                },
+                title: Text(item.text)),
+          );
         },
         itemCount: items.length + 1,
       ),
